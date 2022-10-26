@@ -1,0 +1,37 @@
+<?xml-stylesheet type="text/xsl" href="http://remy-ai.github.io/Bioinformatic/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://remy-ai.github.io/Bioinformatic/post/</loc>
+    <lastmod>2022-10-14T14:49:04+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://remy-ai.github.io/Bioinformatic/</loc>
+    <lastmod>2022-10-14T14:49:04+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://remy-ai.github.io/Bioinformatic/post/session1/</loc>
+    <lastmod>2022-10-14T14:49:04+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://remy-ai.github.io/Bioinformatic/categories/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://remy-ai.github.io/Bioinformatic/tags/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+</urlset>
