@@ -6,7 +6,7 @@ draft: false
 keywords: ['Linux','Vim','Tmux']
 description: ""
 tags: ['linux']
-categories: ['Bioinformaic Series']
+categories: ['Bioinformatic Series']
 author: "Remy Ai"
 
 # You can also close(false) or open(true) something for this content.
