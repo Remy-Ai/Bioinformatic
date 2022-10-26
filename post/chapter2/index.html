@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Chapter2: Linus &#43; Vim &#43; Tmux - Remy-Ai&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Remy Ai" /><meta name="description" content="Basic commands of Linux ls : list files
+ls -l : list files with details ls -a : list all files ls -al : list all files with details ls -lh : list files with details and size in human readable format ls -alh : list all files with details and size in human readable format cd : change directory
+cd .. : change to parent directory cd ~ : change to home directory cd - : change to previous directory cd / : change to root directory cd PATH : change to PATH directory pwd : print working directory" /><meta name="keywords" content="Linux, Vim, Tmux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.104.3 with theme even" />
+
+
+<link rel="canonical" href="http://remy-ai.github.io/Bioinformatic/post/chapter2/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/Bioinformatic/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/Bioinformatic/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/Bioinformatic/favicon-16x16.png">
+<link rel="manifest" href="/Bioinformatic/manifest.json">
+<link rel="mask-icon" href="/Bioinformatic/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/Bioinformatic/sass/main.min.2a3766884c406c389d3a4ca20b300e80e434d78f1c08825bbdf164a13f4a4235.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Chapter2: Linus &#43; Vim &#43; Tmux" />
+<meta property="og:description" content="Basic commands of Linux ls : list files
+ls -l : list files with details ls -a : list all files ls -al : list all files with details ls -lh : list files with details and size in human readable format ls -alh : list all files with details and size in human readable format cd : change directory
+cd .. : change to parent directory cd ~ : change to home directory cd - : change to previous directory cd / : change to root directory cd PATH : change to PATH directory pwd : print working directory" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://remy-ai.github.io/Bioinformatic/post/chapter2/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-10-26T13:07:32+08:00" />
+<meta property="article:modified_time" content="2022-10-26T13:07:32+08:00" />
+
+<meta itemprop="name" content="Chapter2: Linus &#43; Vim &#43; Tmux">
+<meta itemprop="description" content="Basic commands of Linux ls : list files
+ls -l : list files with details ls -a : list all files ls -al : list all files with details ls -lh : list files with details and size in human readable format ls -alh : list all files with details and size in human readable format cd : change directory
+cd .. : change to parent directory cd ~ : change to home directory cd - : change to previous directory cd / : change to root directory cd PATH : change to PATH directory pwd : print working directory"><meta itemprop="datePublished" content="2022-10-26T13:07:32+08:00" />
+<meta itemprop="dateModified" content="2022-10-26T13:07:32+08:00" />
+<meta itemprop="wordCount" content="2294">
+<meta itemprop="keywords" content="linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Chapter2: Linus &#43; Vim &#43; Tmux"/>
+<meta name="twitter:description" content="Basic commands of Linux ls : list files
+ls -l : list files with details ls -a : list all files ls -al : list all files with details ls -lh : list files with details and size in human readable format ls -alh : list all files with details and size in human readable format cd : change directory
+cd .. : change to parent directory cd ~ : change to home directory cd - : change to previous directory cd / : change to root directory cd PATH : change to PATH directory pwd : print working directory"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Remy Ai</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/Bioinformatic/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/Bioinformatic/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/Bioinformatic/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/Bioinformatic/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Remy Ai</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/Bioinformatic/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/Bioinformatic/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/Bioinformatic/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/Bioinformatic/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Chapter2: Linus &#43; Vim &#43; Tmux</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-10-26 </span>
+        <div class="post-category">
+            <a href="/Bioinformatic/categories/bioinformatic-series/"> Bioinformatic Series </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/Bioinformatic/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#basic-commands-of-linux">Basic commands of Linux</a></li>
+        <li><a href="#basic-commands-of-vim">Basic commands of Vim</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#basic-commands-of-tmux">Basic commands of Tmux</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="basic-commands-of-linux">Basic commands of Linux</h2>
+<ul>
+<li>
+<p><strong>ls</strong> : list files</p>
+<ul>
+<li><strong>ls -l</strong> : list files with details</li>
+<li><strong>ls -a</strong> : list all files</li>
+<li><strong>ls -al</strong> : list all files with details</li>
+<li><strong>ls -lh</strong> : list files with details and size in human readable format</li>
+<li><strong>ls -alh</strong> : list all files with details and size in human readable format</li>
+</ul>
+</li>
+<li>
+<p><strong>cd</strong> : change directory</p>
+<ul>
+<li><strong>cd ..</strong> : change to parent directory</li>
+<li><strong>cd ~</strong> : change to home directory</li>
+<li><strong>cd -</strong> : change to previous directory</li>
+<li><strong>cd /</strong> : change to root directory</li>
+<li><strong>cd <em>PATH</em></strong> : change to PATH directory</li>
+</ul>
+</li>
+<li>
+<p><strong>pwd</strong> : print working directory</p>
+<ul>
+<li><strong>pwd -P</strong> : print working directory in physical path</li>
+</ul>
+</li>
+<li>
+<p><strong>mkdir</strong> : make directory</p>
+<ul>
+<li><strong>mkdir -p</strong> : make parent directory if not exist</li>
+<li><strong>mkdir -m</strong> : make directory with mode</li>
+<li><strong>mkdir <em>NAME</em></strong> : make directory with NAME</li>
+</ul>
+</li>
+<li>
+<p><strong>rm</strong> : remove</p>
+<ul>
+<li><strong>rm -r</strong> : remove recursively</li>
+<li><strong>rm -f</strong> : force remove</li>
+<li><strong>rm -rf</strong> : force remove recursively (be serious for this command)</li>
+</ul>
+</li>
+<li>
+<p><strong>rmdir</strong> : remove directory</p>
+<ul>
+<li><strong>rmdir -p</strong> : remove parent directory if empty</li>
+<li><strong>rmdir <em>NAME</em></strong> : remove directory with NAME</li>
+</ul>
+</li>
+<li>
+<p><strong>touch</strong> : create a file</p>
+<ul>
+<li><strong>touch -a</strong> : change access time</li>
+<li><strong>touch -m</strong> : change modify time</li>
+<li><strong>touch -c</strong> : do not create file</li>
+<li><strong>touch -d</strong> : change time</li>
+<li><strong>touch -r</strong> : change time to reference file</li>
+<li><strong>touch -t</strong> : change time</li>
+<li><strong>touch <em>NAME</em></strong> : create a file with NAME</li>
+</ul>
+</li>
+<li>
+<p><strong>cp</strong> : copy</p>
+<ul>
+<li><strong>cp -r</strong> : copy recursively</li>
+<li><strong>cp -p</strong> : copy with permission</li>
+<li><strong>cp -a</strong> : copy recursively with permission</li>
+<li><strong>cp -f</strong> : force copy</li>
+<li><strong>cp -i</strong> : interactive copy</li>
+<li><strong>cp -l</strong> : copy with link</li>
+<li><strong>cp -s</strong> : copy with symbolic link</li>
+<li><strong>cp -u</strong> : copy with update</li>
+<li><strong>cp -v</strong> : copy with verbose</li>
+<li><strong>cp <em>SOURCE</em> <em>DESTINATION</em></strong> : copy SOURCE to DESTINATION</li>
+</ul>
+</li>
+<li>
+<p><strong>mv</strong> : move</p>
+<ul>
+<li><strong>mv -f</strong> : force move</li>
+<li><strong>mv -i</strong> : interactive move</li>
+<li><strong>mv -u</strong> : move with update</li>
+<li><strong>mv -v</strong> : move with verbose</li>
+<li><strong>mv <em>SOURCE</em> <em>DESTINATION</em></strong> : move SOURCE to DESTINATION</li>
+</ul>
+</li>
+<li>
+<p><strong>cat</strong> : concatenate</p>
+<ul>
+<li><strong>cat -n</strong> : concatenate with line number</li>
+<li><strong>cat -b</strong> : concatenate with non-empty line number</li>
+<li><strong>cat -s</strong> : concatenate with squeeze empty line</li>
+</ul>
+</li>
+<li>
+<p><strong>less</strong> : view file</p>
+<ul>
+<li><strong>less -N</strong> : view file with line number</li>
+</ul>
+</li>
+<li>
+<p><strong>head</strong> : view first 10 lines</p>
+<ul>
+<li><strong>head -n</strong> : view first n lines</li>
+</ul>
+</li>
+<li>
+<p><strong>tail</strong> : view last 10 lines</p>
+<ul>
+<li><strong>tail -n</strong> : view last n lines</li>
+</ul>
+</li>
+<li>
+<p><strong>grep</strong> : search for a pattern</p>
+<ul>
+<li><strong>grep -i</strong> : ignore case</li>
+<li><strong>grep -v</strong> : invert match</li>
+<li><strong>grep -c</strong> : count match</li>
+<li><strong>grep -n</strong> : print line number</li>
+<li><strong>grep <em>string</em></strong> : print lines with string</li>
+</ul>
+</li>
+<li>
+<p><strong>wc</strong> : word count</p>
+<ul>
+<li><strong>wc -l</strong> : count lines</li>
+<li><strong>wc -w</strong> : count words</li>
+<li><strong>wc -c</strong> : count characters</li>
+</ul>
+</li>
+<li>
+<p><strong>sort</strong> : sort lines of text</p>
+<ul>
+<li><strong>sort -r</strong> : reverse sort</li>
+<li><strong>sort -n</strong> : sort with number</li>
+</ul>
+</li>
+<li>
+<p><strong>uniq</strong> : report or omit repeated lines</p>
+<ul>
+<li><strong>uniq -c</strong> : count repeated lines</li>
+<li><strong>uniq -d</strong> : print only repeated lines</li>
+</ul>
+</li>
+<li>
+<p><strong>cut</strong> : remove sections from each line of files</p>
+<ul>
+<li><strong>cut -f</strong> : select fields</li>
+<li><strong>cut -d</strong> : use delimiter</li>
+<li><strong>cut -c</strong> : select characters</li>
+</ul>
+</li>
+<li>
+<p><strong>paste</strong> : merge lines of files</p>
+<ul>
+<li><strong>paste -d</strong> : use delimiter</li>
+<li><strong>paste -s</strong> : paste one file at a time</li>
+<li><strong>paste - -</strong> : paste two files</li>
+</ul>
+</li>
+<li>
+<p><strong>find</strong> : search for files in a directory hierarchy</p>
+<ul>
+<li><strong>find -name</strong> : search for files with name</li>
+<li><strong>find -type</strong> : search for files with type</li>
+<li><strong>find -size</strong> : search for files with size</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><strong>find -user</strong> : search for files with user</li>
+<li><strong>find -group</strong> : search for files with group</li>
+<li><strong>find -perm</strong> : search for files with permission</li>
+<li><strong>find -mtime</strong> : search for files with modify time</li>
+<li><strong>find -atime</strong> : search for files with access time</li>
+<li><strong>find -ctime</strong> : search for files with change time</li>
+<li><strong>find -newer</strong> : search for files with newer time</li>
+<li><strong>find -empty</strong> : search for empty files</li>
+</ul>
+</li>
+<li>
+<p><strong>which</strong> : locate a command</p>
+<ul>
+<li><strong>which -a</strong> : locate all commands</li>
+<li><strong>which -s</strong> : locate all commands with status</li>
+</ul>
+</li>
+<li>
+<p><strong>man</strong> : an interface to the system reference manuals</p>
+<ul>
+<li><strong>man -k</strong> : search for keyword</li>
+<li><strong>man -f</strong> : search for keyword with file</li>
+<li><strong>man -w</strong> : search for keyword with path</li>
+</ul>
+</li>
+<li>
+<p><strong>chmod</strong> : change file mode bits</p>
+<ul>
+<li><strong>chmod value1+value2+value3 <em>NAME</em></strong> : change file mode bits with value1, value2, value3
+for user, group, other respectively, and NAME is the file name, e.g. chmod 777 <em>NAME</em>
+<ul>
+<li>r: read, use 4</li>
+<li>w: write, use 2</li>
+<li>x: execute, use 1</li>
+<li>-: no permission, use 0</li>
+<li><strong>chmod 100 <em>NAME</em></strong> : change file mode bits with user can execute, and NAME is the file name</li>
+<li><strong>chmod 600 <em>NAME</em></strong> : change file mode bits with user can read and write, and NAME is the file name</li>
+<li><strong>chmod 777 <em>NAME</em></strong> : change file mode bits with user, group, other can read, write and execute, and NAME is the file name</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>chown</strong> : change file owner and group</p>
+<ul>
+<li><strong>chown user:group <em>NAME</em></strong> : change file owner and group with user and group, and NAME is the file name</li>
+<li><strong>chown user <em>NAME</em></strong> : change file owner with user, and NAME is the file name</li>
+<li><strong>chown :group <em>NAME</em></strong> : change file group with group, and NAME is the file name</li>
+<li><strong>chown . <em>NAME</em></strong> : change file owner and group with current user and group, and NAME is the file name</li>
+</ul>
+</li>
+<li>
+<p><strong>chgrp</strong> : change group ownership</p>
+<ul>
+<li><strong>chgrp group <em>NAME</em></strong> : change group ownership with group, and NAME is the file name</li>
+<li><strong>chgrp . <em>NAME</em></strong> : change group ownership with current group, and NAME is the file name</li>
+<li><strong>chgrp -R group <em>NAME</em></strong> : change group ownership recursively with group, and NAME is the file name</li>
+</ul>
+</li>
+<li>
+<p><strong>ln</strong> : make links between files</p>
+<ul>
+<li><strong>ln -s</strong> : make symbolic links</li>
+<li><strong>ln -f</strong> : force remove existing destination files</li>
+<li><strong>ln -i</strong> : interactive remove existing destination files</li>
+<li><strong>ln -v</strong> : verbose remove existing destination files</li>
+<li><strong>ln -n</strong> : treat destination that is a symbolic link to a directory as if it were a normal file</li>
+<li><strong>ln -b</strong> : remove existing destination files before creating new link</li>
+<li><strong>ln -d</strong> : allow the superuser to attempt to hard link directories</li>
+</ul>
+</li>
+<li>
+<p><strong>df</strong> : report file system disk space usage</p>
+<ul>
+<li><strong>df -h</strong> : report file system disk space usage with human readable</li>
+<li><strong>df -i</strong> : report file system disk space usage with inode</li>
+<li><strong>df -k</strong> : report file system disk space usage with kilobyte</li>
+<li><strong>df -m</strong> : report file system disk space usage with megabyte</li>
+<li><strong>df -l</strong> : report file system disk space usage with local file system</li>
+<li><strong>df -s</strong> : report file system disk space usage with summary</li>
+</ul>
+</li>
+<li>
+<p><strong>du</strong> : estimate file space usage</p>
+<ul>
+<li><strong>du -h</strong> : estimate file space usage with human readable</li>
+<li><strong>du -k</strong> : estimate file space usage with kilobyte</li>
+<li><strong>du -m</strong> : estimate file space usage with megabyte</li>
+<li><strong>du -s</strong> : estimate file space usage with summary</li>
+</ul>
+</li>
+<li>
+<p><strong>tar</strong> : manipulate tape archives</p>
+<ul>
+<li><strong>tar -c</strong> : create a new archive</li>
+<li><strong>tar -x</strong> : extract files from an archive</li>
+<li><strong>tar -f</strong> : use archive file or device ARCHIVE</li>
+<li><strong>tar -v</strong> : verbosely list files processed</li>
+<li><strong>tar -z</strong> : filter the archive through gzip</li>
+</ul>
+</li>
+<li>
+<p><strong>gzip</strong> : compress or expand files</p>
+<ul>
+<li><strong>gzip -c</strong> : write on standard output, keep original files unchanged</li>
+<li><strong>gzip -d</strong> : decompress</li>
+<li><strong>gzip -f</strong> : force overwrite of output file and compress links</li>
+</ul>
+</li>
+<li>
+<p><strong>gunzip</strong> : uncompress files</p>
+<ul>
+<li><strong>gunzip -c</strong> : write on standard output, keep original files unchanged</li>
+<li><strong>gunzip -f</strong> : force overwrite of output file and compress links</li>
+</ul>
+</li>
+<li>
+<p><strong>wget</strong> : non-interactive network downloader</p>
+<ul>
+<li><strong>wget -b</strong> : go to background after startup</li>
+<li><strong>wget -O</strong> : save to file</li>
+<li><strong>wget -c</strong> : continue getting a partially-downloaded file</li>
+<li><strong>wget -r</strong> : recursive download</li>
+</ul>
+</li>
+<li>
+<p><strong>curl</strong> : transfer a URL</p>
+<ul>
+<li><strong>curl -O</strong> : write output to a file named as the remote file</li>
+</ul>
+</li>
+<li>
+<p><strong>ssh</strong> : OpenSSH SSH client (remote login program)</p>
+<ul>
+<li><strong>ssh -p</strong> : connect to the specified port</li>
+<li><strong>ssh -l</strong> : connect as the specified user</li>
+<li><strong>ssh ip</strong> : connect to the specified ip</li>
+</ul>
+</li>
+<li>
+<p><strong>scp</strong> : secure copy (remote file copy program)</p>
+<ul>
+<li><strong>scp -r</strong> : copy directories recursively</li>
+<li><strong>scp -P</strong> : connect to the specified port</li>
+<li><strong>scp -l</strong> : connect as the specified user</li>
+<li><strong>scp ip</strong> : connect to the specified ip</li>
+</ul>
+</li>
+<li>
+<p><strong>top</strong> : display Linux processes</p>
+<ul>
+<li><strong>top -b</strong> : batch mode</li>
+<li><strong>top -c</strong> : enable colors</li>
+<li><strong>top -d</strong> : delay between updates</li>
+<li><strong>top -n</strong> : number of iterations</li>
+<li><strong>top -p</strong> : show only these processes</li>
+<li><strong>top -u</strong> : show only this user&rsquo;s processes</li>
+</ul>
+</li>
+<li>
+<p><strong>ps</strong> : report a snapshot of the current processes</p>
+<ul>
+<li><strong>ps -A</strong> : show processes for all users</li>
+<li><strong>ps -a</strong> : show processes for all users except session leaders</li>
+<li><strong>ps -u</strong> : show processes for the specified user</li>
+</ul>
+</li>
+<li>
+<p><strong>kill</strong> : send a signal to a process</p>
+<ul>
+<li><strong>kill -l</strong> : list signal names</li>
+<li><strong>kill -s</strong> : specify the name of the signal to be sent</li>
+<li><strong>kill -u</strong> : specify the user who owns the process to be signaled</li>
+</ul>
+</li>
+<li>
+<p><strong>killall</strong> : kill processes by name</p>
+<ul>
+<li><strong>killall -l</strong> : list signal names</li>
+<li><strong>killall -s</strong> : specify the name of the signal to be sent</li>
+<li><strong>killall -u</strong> : specify the user who owns the process to be signaledd</li>
+</ul>
+</li>
+<li>
+<p><strong>jobs</strong> : list current jobs</p>
+<ul>
+<li><strong>jobs -l</strong> : list current jobs with job IDs</li>
+<li><strong>jobs -p</strong> : list current jobs with process IDs</li>
+<li><strong>jobs -r</strong> : list current jobs with running jobs</li>
+</ul>
+</li>
+<li>
+<p><strong>awk</strong> : pattern scanning and processing language</p>
+</li>
+<li>
+<ul>
+<li><strong>awk -F</strong> : set field separator</li>
+<li><strong>awk -f</strong> : read program from file</li>
+<li><strong>awk -v</strong> : assign value to variable</li>
+</ul>
+</li>
+<li>
+<p><strong>sed</strong> : stream editor for filtering and transforming text</p>
+<ul>
+<li><strong>sed -n</strong> : suppress automatic printing of pattern space</li>
+<li><strong>sed -e</strong> : add the script to the commands to be executed</li>
+<li><strong>sed -f</strong> : add the contents of script-file to the commands to be executed</li>
+<li><strong>sed -i</strong> : edit files in place (makes backup if extension supplied)</li>
+<li><strong>sed -r</strong> : use extended regular expressions in the script</li>
+<li><strong>sed -s</strong> : print only the lines selected by the script</li>
+<li><strong>sed -u</strong> : disable all buffering</li>
+<li><strong>sed -w</strong> : write the modified buffer into the file</li>
+</ul>
+</li>
+</ul>
+<p><strong>You can specify the command with your alias in the bash configure file</strong></p>
+<hr>
+<h2 id="basic-commands-of-vim">Basic commands of Vim</h2>
+<h5 id="open-file-with-vim">open file with vim</h5>
+<pre><code>$vim filename 
+</code></pre>
+<h4 id="three-mode-of-vim">Three mode of vim</h4>
+<ul>
+<li>
+<p><strong>command mode</strong> : press ESC to enter command mode</p>
+<ul>
+<li><code>:w</code> : save file</li>
+<li><code>:q</code> : quit file</li>
+<li><code>:wq</code> : save and quit file</li>
+<li><code>:q!</code> : quit without saving</li>
+<li><code>:wq!</code> : save and quit without warning</li>
+<li><code>:set nu</code> : show line number</li>
+<li><code>:set nonu</code> : hide line number</li>
+<li><code>k</code> : move cursor up</li>
+<li><code>j</code> : move cursor down</li>
+<li><code>l</code> : move cursor right</li>
+<li><code>h</code> : move cursor left</li>
+<li><code>w</code> : move cursor to the beginning of next word</li>
+<li><code>b</code> : move cursor to the beginning of previous word</li>
+<li><code>e</code> : move cursor to the end of next word</li>
+<li><code>0</code> : move cursor to the beginning of line</li>
+<li><code>$</code> : move cursor to the end of line</li>
+<li><code>gg</code> : move cursor to the beginning of file</li>
+<li><code>G</code> : move cursor to the end of file</li>
+<li><code>nG</code> : move cursor to the nth line</li>
+<li><code>dd</code> : delete current line</li>
+<li><code>ndd</code> : delete n lines</li>
+<li><code>u</code> : undo</li>
+<li><code>ctrl+r</code> : redo</li>
+<li><code>yy</code> : copy current line</li>
+<li><code>nyy</code> : copy n lines</li>
+<li><code>p</code> : paste</li>
+<li><code>x</code> : delete current character</li>
+<li><code>nx</code> : delete n characters</li>
+<li><code>r</code> : replace current character</li>
+<li><code>f</code> : find next character</li>
+</ul>
+</li>
+<li>
+<p><strong>visual mode</strong> : press v after enter command mode to enter visual mode</p>
+<ul>
+<li><code>v</code> : enter visual mode</li>
+<li><code>V</code> : enter visual line mode</li>
+<li><code>ctrl+v</code> : enter visual block mode</li>
+<li><code>y</code> : copy</li>
+<li><code>d</code> : delete</li>
+<li><code>p</code> : paste</li>
+<li><code>x</code> : delete</li>
+<li><code>r</code> : replace</li>
+<li><code>:</code> : enter command mode</li>
+<li><code>u</code> : undo</li>
+<li><code>ctrl+r</code> : redo</li>
+<li><code>i</code> : enter insert mode</li>
+<li><code>a</code> : enter insert mode</li>
+<li><code>o</code> : enter insert mode</li>
+<li><code>A</code> : enter insert mode</li>
+<li><code>O</code> : enter insert mode</li>
+<li><code>ESC</code> : enter command mode</li>
+</ul>
+</li>
+<li>
+<p><strong>insert mode</strong> : press i after press <code>Esc</code> to enter insert mode</p>
+</li>
+<li>
+<p><strong>replace mode</strong> : press R after press <code>Esc</code> to enter replace mode</p>
+</li>
+</ul>
+<h4 id="you-can-use-help-to-get-more-information-about-vim-and-specify-the-command-in-your-vim-configure-file">you can use <code>:help</code> to get more information about vim, and specify the command in your vim configure file</h4>
+<hr>
+<h2 id="basic-commands-of-tmux">Basic commands of Tmux</h2>
+<ul>
+<li>open tmux
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$tmux
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>open tmux with session name
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$tmux new -s session_name
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>open tmux with session name and window name
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$tmux new -s session_name -n window_name
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>open tmux with attach session
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$tmux attach -t session_name
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>open tmux with attach session and window
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$tmux attach -t session_name:window_name
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>commands under tmux mode
+<ul>
+<li><code>ctrl+b</code> : enter tmux mode</li>
+<li><code>ctrl+b d</code> : detach tmux</li>
+<li><code>ctrl+b c</code> : create new window</li>
+<li><code>ctrl+b n</code> : next window</li>
+<li><code>ctrl+b p</code> : previous window</li>
+<li><code>ctrl+b l</code> : last window</li>
+<li><code>ctrl+b 0</code> : window 0</li>
+<li><code>ctrl+b 1</code> : window 1</li>
+<li><code>ctrl+b 2</code> : window 2</li>
+<li><code>ctrl+b 3</code> : window 3</li>
+<li><code>ctrl+b 4</code> : window 4</li>
+<li><code>ctrl+b 5</code> : window 5</li>
+<li><code>ctrl+b 6</code> : window 6</li>
+<li><code>ctrl+b 7</code> : window 7</li>
+<li><code>ctrl+b 8</code> : window 8</li>
+<li><code>ctrl+b 9</code> : window 9</li>
+<li><code>ctrl+b w</code> : list windows</li>
+<li><code>ctrl+b ,</code> : rename window</li>
+<li><code>ctrl+b &amp;</code> : kill window</li>
+<li><code>ctrl+b %</code> : split window vertically</li>
+<li><code>ctrl+b &quot;</code> : split window horizontally</li>
+<li><code>ctrl+b o</code> : next pane</li>
+<li><code>ctrl+b ;</code> : last pane</li>
+<li><code>ctrl+b q</code> : show pane numbers</li>
+<li><code>ctrl+b x</code> : kill pane</li>
+<li><code>ctrl+b z</code> : toggle pane zoom</li>
+<li><code>ctrl+b [</code> : enter copy mode</li>
+<li><code>ctrl+b ]</code> : paste buffer</li>
+<li><code>ctrl+b :</code> : enter command mode</li>
+<li><code>ctrl+b ?</code> : list shortcuts</li>
+<li><code>ctrl+b :setw synchronize-panes on</code> : synchronize panes</li>
+<li><code>ctrl+b :setw synchronize-panes off</code> : unsynchronize panes</li>
+<li><code>ctrl+b :setw synchronize-panes</code> : check synchronize-panes status</li>
+<li><code>ctrl+b :setw mouse on</code> : enable mouse</li>
+<li><code>ctrl+b :setw mouse off</code> : disable mouse</li>
+<li><code>ctrl+b :setw mouse</code> : check mouse status</li>
+<li><code>ctrl+b :setw remain-on-exit on</code> : remain on exit</li>
+<li><code>ctrl+b :setw remain-on-exit off</code> : not remain on exit</li>
+<li><code>ctrl+b :setw remain-on-exit</code> : check remain-on-exit status</li>
+<li><code>ctrl+b :setw aggressive-resize on</code> : aggressive resize</li>
+</ul>
+</li>
+</ul>
+<h6 id="you-can-specify-the-command-in-your-tmux-configure-file">you can specify the command in your tmux configure file</h6>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/Bioinformatic/tags/linux/">linux</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/Bioinformatic/post/chapter1/">
+            <span class="next-text nav-default">Chapter1: what is bioinformatic in my view?</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="remyai@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://scholar.google.com/citations?hl=zh-CN&amp;user=rUrjfMpVxQcC" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/Remy-Ai" class="iconfont icon-github" title="github"></a>
+  <a href="http://remy-ai.github.io/Bioinformatic/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/Bioinformatic/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/Bioinformatic/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Remy Ai</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script><script></script><script src="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.js" integrity="sha256-4O4pS1SH31ZqrSO2A/2QJTVjTPqVe+jnYgOWUVr7EEc=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/snapsvg@0.5.1/dist/snap.svg-min.js" integrity="sha256-oI+elz+sIm+jpn8F/qEspKoKveTc5uKeFHNNVexe6d8=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/underscore@1.8.3/underscore-min.js" integrity="sha256-obZACiHd7gkOk9iIL/pimWMTJ4W/pBsKu+oZnSeBIek=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/gh/bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.js" integrity="sha384-8748Vn52gHJYJI0XEuPB2QlPVNUkJlJn9tHqKec6J3q2r9l8fvRxrgn/E5ZHV0sP" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.css" integrity="sha384-6QbLKJMz5dS3adWSeINZe74uSydBGFbnzaAYmp+tKyq60S7H2p6V7g1TysM5lAaF" crossorigin="anonymous">
+
+
+
+<script type="text/javascript" src="/Bioinformatic/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script type="text/javascript" async src="/Bioinformatic/lib/mathjax/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+
+<script>
+  function createCopyButton(highlightDiv) {
+    const div = document.createElement("div");
+    div.className = "copy-code";
+    div.innerText = "Copy";
+    div.addEventListener("click", () =>
+      copyCodeToClipboard(div, highlightDiv)
+    );
+    addCopyButtonToDom(div, highlightDiv);
+  }
+
+  async function copyCodeToClipboard(button, highlightDiv) {
+    const codeToCopy = highlightDiv.querySelector(":last-child > .chroma > code")
+      .innerText;
+    await navigator.clipboard.writeText(codeToCopy);
+    button.blur();
+    button.innerText = "Copied!";
+    setTimeout(() => button.innerText = "Copy", 2000);
+  }
+
+  function addCopyButtonToDom(button, highlightDiv) {
+    highlightDiv.insertBefore(button, highlightDiv.firstChild);
+    const wrapper = document.createElement("div");
+    wrapper.className = "highlight-wrapper";
+    highlightDiv.parentNode.insertBefore(wrapper, highlightDiv);
+    wrapper.appendChild(highlightDiv);
+  }
+
+  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if(!isMobile){
+     document.querySelectorAll(".highlight").forEach((highlightDiv) => createCopyButton(highlightDiv));
+  }
+</script>  
+
+
+</body>
+</html>

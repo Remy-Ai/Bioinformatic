@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: http://remy-ai.github.io/Bioinformatic/sitemap.xml

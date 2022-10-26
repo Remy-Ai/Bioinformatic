@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Remy-Ai&#39;s Blog</title>
+    <link>http://remy-ai.github.io/Bioinformatic/</link>
+    <description>Recent content on Remy-Ai&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 26 Oct 2022 13:07:32 +0800</lastBuildDate><atom:link href="http://remy-ai.github.io/Bioinformatic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chapter2: Linus &#43; Vim &#43; Tmux</title>
+      <link>http://remy-ai.github.io/Bioinformatic/post/chapter2/</link>
+      <pubDate>Wed, 26 Oct 2022 13:07:32 +0800</pubDate>
+      
+      <guid>http://remy-ai.github.io/Bioinformatic/post/chapter2/</guid>
+      <description>Basic commands of Linux ls : list files
+ls -l : list files with details ls -a : list all files ls -al : list all files with details ls -lh : list files with details and size in human readable format ls -alh : list all files with details and size in human readable format cd : change directory
+cd .. : change to parent directory cd ~ : change to home directory cd - : change to previous directory cd / : change to root directory cd PATH : change to PATH directory pwd : print working directory</description>
+    </item>
+    
+    <item>
+      <title>Chapter1: what is bioinformatic in my view?</title>
+      <link>http://remy-ai.github.io/Bioinformatic/post/chapter1/</link>
+      <pubDate>Fri, 14 Oct 2022 14:49:04 +0800</pubDate>
+      
+      <guid>http://remy-ai.github.io/Bioinformatic/post/chapter1/</guid>
+      <description>Cores for bioinformattrue Coding + Statistcs + Biology Coding : Linux, Python, R, Perl, Shell, C++, Java, etc. Statistcs : Theory of probability, Statistics inference, Machine learning, etc. Biology : Principle of Neural Science, Gene XI, Molecular Biology of the Cell 6th, etc. Data analysis Data preprocessing and managment Data transformation and operation Mathematical model Data visualization Data summary Books Coding C++ Primer Python Crash Course Fluent Python Mr.Bird Linux Statistics All of Statistics Statistical inference Machine learning: A probabilistic Perspective Deep Learning Biology Genes IX Molecular biology of the cell Principle of Neurobiology Principle of Neural Science </description>
+    </item>
+    
+  </channel>
+</rss>
