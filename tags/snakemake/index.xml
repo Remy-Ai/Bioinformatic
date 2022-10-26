@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>snakemake on Remy-Ai&#39;s Blog</title>
+    <link>http://remy-ai.github.io/Bioinformatic/tags/snakemake/</link>
+    <description>Recent content in snakemake on Remy-Ai&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 26 Oct 2022 16:16:43 +0800</lastBuildDate><atom:link href="http://remy-ai.github.io/Bioinformatic/tags/snakemake/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chapter 3: Snakemake for RNA-sseq</title>
+      <link>http://remy-ai.github.io/Bioinformatic/post/chapter3/</link>
+      <pubDate>Wed, 26 Oct 2022 16:16:43 +0800</pubDate>
+      
+      <guid>http://remy-ai.github.io/Bioinformatic/post/chapter3/</guid>
+      <description>Introduction Snakemake is a python-based pipeline software that can be used to automate the workflow of bioinformatics analysis. In this chapter, we will use snakemake to build a RNA-seq analysis pipeline. Installation Install Miniconda Download the Miniconda installer for Linux from here Run the installer Add the following line to your .bashrc file 1 export PATH=&amp;#34;/home/username/miniconda3/bin:$PATH&amp;#34; Run the following command to update conda 1 conda update conda Install Snakemake 1 conda install -c bioconda -c conda-forge snakemake Pipeline Quality Control FastQC Input: Fastq files Output: FastQC report Command 1 fastqc -o {output} {input} 1 2 3 4 5 6 7 8 9 rule fastqc: input: &amp;#34;data/{sample}_1.</description>
+    </item>
+    
+  </channel>
+</rss>

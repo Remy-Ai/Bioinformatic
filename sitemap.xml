@@ -3,14 +3,56 @@
   
   <url>
     <loc>http://remy-ai.github.io/Bioinformatic/categories/bioinformatic-series/</loc>
-    <lastmod>2022-10-26T13:07:32+08:00</lastmod>
+    <lastmod>2022-10-26T16:16:43+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://remy-ai.github.io/Bioinformatic/categories/</loc>
-    <lastmod>2022-10-26T13:07:32+08:00</lastmod>
+    <lastmod>2022-10-26T16:16:43+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://remy-ai.github.io/Bioinformatic/post/chapter3/</loc>
+    <lastmod>2022-10-26T16:16:43+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://remy-ai.github.io/Bioinformatic/post/</loc>
+    <lastmod>2022-10-26T16:16:43+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://remy-ai.github.io/Bioinformatic/</loc>
+    <lastmod>2022-10-26T16:16:43+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://remy-ai.github.io/Bioinformatic/tags/rna-seq/</loc>
+    <lastmod>2022-10-26T16:16:43+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://remy-ai.github.io/Bioinformatic/tags/snakemake/</loc>
+    <lastmod>2022-10-26T16:16:43+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://remy-ai.github.io/Bioinformatic/tags/</loc>
+    <lastmod>2022-10-26T16:16:43+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -24,27 +66,6 @@
   
   <url>
     <loc>http://remy-ai.github.io/Bioinformatic/tags/linux/</loc>
-    <lastmod>2022-10-26T13:07:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://remy-ai.github.io/Bioinformatic/post/</loc>
-    <lastmod>2022-10-26T13:07:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://remy-ai.github.io/Bioinformatic/</loc>
-    <lastmod>2022-10-26T13:07:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://remy-ai.github.io/Bioinformatic/tags/</loc>
     <lastmod>2022-10-26T13:07:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

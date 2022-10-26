@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Chapter 3: Snakemake for RNA-sseq - Remy-Ai&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Remy Ai" /><meta name="description" content="Using a pipeline software, snakemake, to analyze RNA-seq data" /><meta name="keywords" content="snakemake, RNA-seq" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.104.3 with theme even" />
+
+
+<link rel="canonical" href="http://remy-ai.github.io/Bioinformatic/post/chapter3/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/Bioinformatic/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/Bioinformatic/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/Bioinformatic/favicon-16x16.png">
+<link rel="manifest" href="/Bioinformatic/manifest.json">
+<link rel="mask-icon" href="/Bioinformatic/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/Bioinformatic/sass/main.min.2a3766884c406c389d3a4ca20b300e80e434d78f1c08825bbdf164a13f4a4235.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Chapter 3: Snakemake for RNA-sseq" />
+<meta property="og:description" content="Using a pipeline software, snakemake, to analyze RNA-seq data" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://remy-ai.github.io/Bioinformatic/post/chapter3/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-10-26T16:16:43+08:00" />
+<meta property="article:modified_time" content="2022-10-26T16:16:43+08:00" />
+
+<meta itemprop="name" content="Chapter 3: Snakemake for RNA-sseq">
+<meta itemprop="description" content="Using a pipeline software, snakemake, to analyze RNA-seq data"><meta itemprop="datePublished" content="2022-10-26T16:16:43+08:00" />
+<meta itemprop="dateModified" content="2022-10-26T16:16:43+08:00" />
+<meta itemprop="wordCount" content="560">
+<meta itemprop="keywords" content="snakemake,RNA-seq," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Chapter 3: Snakemake for RNA-sseq"/>
+<meta name="twitter:description" content="Using a pipeline software, snakemake, to analyze RNA-seq data"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Remy Ai</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/Bioinformatic/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/Bioinformatic/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/Bioinformatic/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/Bioinformatic/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Remy Ai</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/Bioinformatic/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/Bioinformatic/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/Bioinformatic/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/Bioinformatic/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Chapter 3: Snakemake for RNA-sseq</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-10-26 </span>
+        <div class="post-category">
+            <a href="/Bioinformatic/categories/bioinformatic-series/"> Bioinformatic Series </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/Bioinformatic/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#introduction"><strong>Introduction</strong></a></li>
+            <li><a href="#installation"><strong>Installation</strong></a></li>
+            <li><a href="#pipeline"><strong>Pipeline</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="introduction"><strong>Introduction</strong></h3>
+<p><em><strong><a href="https://snakemake.readthedocs.io/en/stable/index.html">Snakemake</a> is a python-based pipeline software that can be used to automate the workflow of bioinformatics analysis. In this chapter, we will use snakemake to build a RNA-seq analysis pipeline.</strong></em>
+<img src="RNA-seq.png" alt=""></p>
+<hr>
+<h3 id="installation"><strong>Installation</strong></h3>
+<ul>
+<li><strong>Install Miniconda</strong>
+<ul>
+<li>Download the Miniconda installer for Linux from <a href="https://docs.conda.io/en/latest/miniconda.html">here</a></li>
+<li>Run the installer</li>
+<li>Add the following line to your .bashrc file</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;/home/username/miniconda3/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Run the following command to update conda</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">conda update conda
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>Install Snakemake</strong>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">conda install -c bioconda -c conda-forge snakemake
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<hr>
+<h3 id="pipeline"><strong>Pipeline</strong></h3>
+<ul>
+<li><strong>Quality Control</strong>
+<ul>
+<li><strong>FastQC</strong>
+<ul>
+<li><strong>Input</strong>: Fastq files</li>
+<li><strong>Output</strong>: FastQC report</li>
+<li><strong>Command</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fastqc -o <span class="o">{</span>output<span class="o">}</span> <span class="o">{</span>input<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rule fastqc:
+</span></span><span class="line"><span class="cl">    input:
+</span></span><span class="line"><span class="cl">        &#34;data/{sample}_1.fastq.gz&#34;,
+</span></span><span class="line"><span class="cl">        &#34;data/{sample}_2.fastq.gz&#34;
+</span></span><span class="line"><span class="cl">    output:
+</span></span><span class="line"><span class="cl">        &#34;results/fastqc/{sample}_1_fastqc.html&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/fastqc/{sample}_2_fastqc.html&#34;
+</span></span><span class="line"><span class="cl">    shell:
+</span></span><span class="line"><span class="cl">        &#34;fastqc -o {output} {input}&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>MultiQC</strong>
+<ul>
+<li><strong>Input</strong>: FastQC report</li>
+<li><strong>Output</strong>: MultiQC report</li>
+<li><strong>Command</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">multiqc -o <span class="o">{</span>output<span class="o">}</span> <span class="o">{</span>input<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rule multiqc:
+</span></span><span class="line"><span class="cl">    input:
+</span></span><span class="line"><span class="cl">        &#34;results/fastqc/{sample}_1_fastqc.html&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/fastqc/{sample}_2_fastqc.html&#34;
+</span></span><span class="line"><span class="cl">    output:
+</span></span><span class="line"><span class="cl">        &#34;results/multiqc/multiqc_report.html&#34;
+</span></span><span class="line"><span class="cl">    shell:
+</span></span><span class="line"><span class="cl">        &#34;multiqc -o {output} {input}&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>Trimming</strong>
+<ul>
+<li><strong>Input</strong>: Fastq files</li>
+<li><strong>Output</strong>: Trimmed fastq files</li>
+<li><strong>Command</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">java -jar &lt;Path to trimmomatic.jar&gt; --PE --threads -o <span class="o">{</span>input<span class="o">}</span> <span class="o">{</span>output<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rule trimmomatic:
+</span></span><span class="line"><span class="cl">    input:
+</span></span><span class="line"><span class="cl">        &#34;data/{sample}_1.fastq.gz&#34;,
+</span></span><span class="line"><span class="cl">        &#34;data/{sample}_2.fastq.gz&#34;
+</span></span><span class="line"><span class="cl">    output:
+</span></span><span class="line"><span class="cl">        &#34;results/trimmomatic/{sample}_1_paired.fastq.gz&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/trimmomatic/{sample}_1_unpaired.fastq.gz&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/trimmomatic/{sample}_2_paired.fastq.gz&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/trimmomatic/{sample}_2_unpaired.fastq.gz&#34;
+</span></span><span class="line"><span class="cl">    shell:
+</span></span><span class="line"><span class="cl">        &#34;java -jar &lt;Path to trimmomatic.jar&gt; --PE --threads -o {input} {output}&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+<li><strong>Alignment</strong>
+<em><strong>There are many aligners that can be used for RNA-seq data. <a href="https://github.com/bwa-mem2/bwa-mem2">bwa-mem2</a>, <a href="https://bowtie-bio.sourceforge.net/bowtie2/index.shtml">bowtie2</a>, <a href="http://daehwankimlab.github.io/hisat2/">hisat2</a>, <a href="https://github.com/alexdobin/STAR">STAR</a>,<a href="https://ccb.jhu.edu/software/tophat/index.shtml">TopHat2</a>, etc. In this tutorial, we will use Hisat2 aligner.</strong></em>
+<ul>
+<li><strong>Hisat2 genome reference index</strong>
+<ul>
+<li><strong>Input</strong>: Genome reference file</li>
+<li><strong>Output</strong>: Hisat2 genome reference index</li>
+<li><strong>Command</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hisat2-build -f <span class="o">{</span>input<span class="o">}</span> <span class="o">{</span>output<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rule hisat2_index:
+</span></span><span class="line"><span class="cl">    input:
+</span></span><span class="line"><span class="cl">        &#34;data/genome.fa&#34;
+</span></span><span class="line"><span class="cl">    output:
+</span></span><span class="line"><span class="cl">        &#34;results/hisat2_index/genome.1.ht2&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/hisat2_index/genome.2.ht2&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/hisat2_index/genome.3.ht2&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/hisat2_index/genome.4.ht2&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/hisat2_index/genome.5.ht2&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/hisat2_index/genome.6.ht2&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/hisat2_index/genome.7.ht2&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/hisat2_index/genome.8.ht2&#34;
+</span></span><span class="line"><span class="cl">    shell:
+</span></span><span class="line"><span class="cl">        &#34;hisat2-build -f {input} {output}&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="you-can-also-download-the-index-in-the-websitehttpsdaehwankimlabgithubiohisat2download"><em><strong>you can also download the index in the <a href="https://daehwankimlab.github.io/hisat2/download/">website</a></strong></em></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>Hisat2 alignment</strong>
+<ul>
+<li><strong>Input</strong>: Trimmed fastq files</li>
+<li><strong>Output</strong>: BAM files</li>
+<li><strong>Command</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hisat2 -x &lt;Path to reference genome&gt; -1 <span class="o">{</span>input<span class="o">}</span> -2 <span class="o">{</span>input<span class="o">}</span> -S <span class="o">{</span>output<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rule hisat2:
+</span></span><span class="line"><span class="cl">    input:
+</span></span><span class="line"><span class="cl">        &#34;results/trimmomatic/{sample}_1_paired.fastq.gz&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/trimmomatic/{sample}_2_paired.fastq.gz&#34;
+</span></span><span class="line"><span class="cl">    output:
+</span></span><span class="line"><span class="cl">        &#34;results/hisat2/{sample}.bam&#34;
+</span></span><span class="line"><span class="cl">    shell:
+</span></span><span class="line"><span class="cl">        &#34;hisat2 -x &lt;Path to reference genome&gt; -1 {input} -2 {input} -S {output}&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>Samtools sort</strong>
+<ul>
+<li><strong>Input</strong>: BAM files</li>
+<li><strong>Output</strong>: Sorted BAM files</li>
+<li><strong>Command</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">samtools sort -o <span class="o">{</span>output<span class="o">}</span> <span class="o">{</span>input<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rule samtools_sort:
+</span></span><span class="line"><span class="cl">    input:
+</span></span><span class="line"><span class="cl">        &#34;results/hisat2/{sample}.bam&#34;
+</span></span><span class="line"><span class="cl">    output:
+</span></span><span class="line"><span class="cl">        &#34;results/samtools_sort/{sample}.sorted.bam&#34;
+</span></span><span class="line"><span class="cl">    shell:
+</span></span><span class="line"><span class="cl">        &#34;samtools sort -o {output} {input}&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>Featurecounts</strong>
+<ul>
+<li><strong>Input</strong>: All sorted BAM files</li>
+<li><strong>Output</strong>: Featurecounts report</li>
+<li><strong>Command</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">featureCounts -T <span class="m">20</span> -p -t exon -g gene_id -a &lt;Path to annotation file&gt; -o <span class="o">{</span>output<span class="o">}</span> <span class="o">{</span>inputs<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rule featurecounts:
+</span></span><span class="line"><span class="cl">    input:
+</span></span><span class="line"><span class="cl">        expand(&#34;results/samtools_sort/{sample}.sorted.bam&#34;, sample=SAMPLES)
+</span></span><span class="line"><span class="cl">    output:
+</span></span><span class="line"><span class="cl">        &#34;results/featurecounts/featurecounts_report.txt&#34;
+</span></span><span class="line"><span class="cl">    shell:
+</span></span><span class="line"><span class="cl">        &#34;featureCounts -T 20 -p -t exon -g gene_id -a &lt;Path to annotation file&gt; -o {output} {inputs}&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>Differential expression analysis</strong>
+<ul>
+<li><strong>Input</strong>: Featurecounts report</li>
+<li><strong>Output</strong>: Differential expression analysis report</li>
+<li><strong>Command</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Rscript &lt;Path to DESeq2.R&gt; <span class="o">{</span>input<span class="o">}</span> <span class="o">{</span>output<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rule DESeq2:
+</span></span><span class="line"><span class="cl">    input:
+</span></span><span class="line"><span class="cl">        &#34;results/featurecounts/featurecounts_report.txt&#34;
+</span></span><span class="line"><span class="cl">    output:
+</span></span><span class="line"><span class="cl">        &#34;results/DESeq2/DESeq2_report.txt&#34;
+</span></span><span class="line"><span class="cl">    shell:
+</span></span><span class="line"><span class="cl">        &#34;Rscript &lt;Path to DESeq2.R&gt; {input} {output}&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+</ul>
+<h4 id="you-can-make-a-rscript-deseq2r-from-deseq2-tutorialhttpbioconductororgpackagesdevelbiocvignettesdeseq2instdocdeseq2html-and-run-it-in-the-terminal"><em><strong>You can make a Rscript, Deseq2.R, from <a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">Deseq2 tutorial</a> and run it in the terminal.</strong></em></h4>
+<ul>
+<li><strong>GO and GSEA</strong>
+<ul>
+<li><strong>Input</strong>: Differential expression analysis report</li>
+<li><strong>Output</strong>: GO and GSEA report</li>
+<li><strong>Command</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Rscript &lt;Path to GO_GSEA.R&gt; <span class="o">{</span>input<span class="o">}</span> <span class="o">{</span>output<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rule GO_GSEA:
+</span></span><span class="line"><span class="cl">    input:
+</span></span><span class="line"><span class="cl">        &#34;results/DESeq2/DESeq2_report.txt&#34;
+</span></span><span class="line"><span class="cl">    output:
+</span></span><span class="line"><span class="cl">        &#34;results/GO_GSEA/GO_report.txt&#34;,
+</span></span><span class="line"><span class="cl">        &#34;results/GO_GSEA/GSEA_report.txt&#34;
+</span></span><span class="line"><span class="cl">    shell:
+</span></span><span class="line"><span class="cl">        &#34;Rscript &lt;Path to GO_GSEA.R&gt; {input} {output}&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h4 id="you-can-make-a-rscript-go_gsear-from-clusterprofile-tutorialhttpsgithubcomyulab-smuclusterprofiler-and-run-it-in-the-terminal"><em><strong>You can make a Rscript, GO_GSEA.R, from <a href="https://github.com/YuLab-SMU/clusterProfiler">clusterProfile tutorial</a> and run it in the terminal.</strong></em></h4>
+<hr>
+<p><strong>1. Conesa, Ana, et al. &ldquo;A survey of best practices for RNA-seq data analysis.&rdquo; Genome biology 17.1 (2016): 1-19.</strong></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/Bioinformatic/tags/snakemake/">snakemake</a>
+          <a href="/Bioinformatic/tags/rna-seq/">RNA-seq</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/Bioinformatic/post/chapter2/">
+            <span class="next-text nav-default">Chapter2: Linus &#43; Vim &#43; Tmux</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="remyai@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://scholar.google.com/citations?hl=zh-CN&amp;user=rUrjfMpVxQcC" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/Remy-Ai" class="iconfont icon-github" title="github"></a>
+  <a href="http://remy-ai.github.io/Bioinformatic/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/Bioinformatic/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/Bioinformatic/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Remy Ai</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script><script></script><script src="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.js" integrity="sha256-4O4pS1SH31ZqrSO2A/2QJTVjTPqVe+jnYgOWUVr7EEc=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/snapsvg@0.5.1/dist/snap.svg-min.js" integrity="sha256-oI+elz+sIm+jpn8F/qEspKoKveTc5uKeFHNNVexe6d8=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/underscore@1.8.3/underscore-min.js" integrity="sha256-obZACiHd7gkOk9iIL/pimWMTJ4W/pBsKu+oZnSeBIek=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/gh/bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.js" integrity="sha384-8748Vn52gHJYJI0XEuPB2QlPVNUkJlJn9tHqKec6J3q2r9l8fvRxrgn/E5ZHV0sP" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.css" integrity="sha384-6QbLKJMz5dS3adWSeINZe74uSydBGFbnzaAYmp+tKyq60S7H2p6V7g1TysM5lAaF" crossorigin="anonymous">
+
+
+
+<script type="text/javascript" src="/Bioinformatic/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script type="text/javascript" async src="/Bioinformatic/lib/mathjax/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+
+<script>
+  function createCopyButton(highlightDiv) {
+    const div = document.createElement("div");
+    div.className = "copy-code";
+    div.innerText = "Copy";
+    div.addEventListener("click", () =>
+      copyCodeToClipboard(div, highlightDiv)
+    );
+    addCopyButtonToDom(div, highlightDiv);
+  }
+
+  async function copyCodeToClipboard(button, highlightDiv) {
+    const codeToCopy = highlightDiv.querySelector(":last-child > .chroma > code")
+      .innerText;
+    await navigator.clipboard.writeText(codeToCopy);
+    button.blur();
+    button.innerText = "Copied!";
+    setTimeout(() => button.innerText = "Copy", 2000);
+  }
+
+  function addCopyButtonToDom(button, highlightDiv) {
+    highlightDiv.insertBefore(button, highlightDiv.firstChild);
+    const wrapper = document.createElement("div");
+    wrapper.className = "highlight-wrapper";
+    highlightDiv.parentNode.insertBefore(wrapper, highlightDiv);
+    wrapper.appendChild(highlightDiv);
+  }
+
+  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if(!isMobile){
+     document.querySelectorAll(".highlight").forEach((highlightDiv) => createCopyButton(highlightDiv));
+  }
+</script>  
+
+
+</body>
+</html>
