@@ -1,12 +1,12 @@
 ---
-title: "Session1: what is bioinformatic in my view?"
+title: "Chapter1: what is bioinformatic in my view?"
 date: 2022-10-14T14:49:04+08:00
 lastmod: 2022-10-14T14:49:04+08:00
 draft: false
 keywords: []
 description: ""
 tags: []
-categories: []
+categories: [Bioinformati]
 author: "Remy Ai"
 
 # You can also close(false) or open(true) something for this content.
