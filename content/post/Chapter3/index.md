@@ -1,8 +1,8 @@
 ---
-title: "Chapter 3: Snakemake for RNA-sseq"
+title: "Chapter 3: Snakemake for RNA-seq"
 date: 2022-10-26T16:16:43+08:00
 lastmod: 2022-10-26T16:16:43+08:00
-draft: true
+draft: false
 keywords: ['snakemake','RNA-seq']
 description: "Using a pipeline software, snakemake, to analyze RNA-seq data"
 tags: ['snakemake','RNA-seq']
